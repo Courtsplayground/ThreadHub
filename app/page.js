@@ -1,24 +1,38 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
-  const posts = [
+  const [posts, setPosts] = useState([
     {
       title: "What would make social media better?",
       author: "OpenTalk",
       votes: 245,
-      comments: 89
+      comments: 89,
     },
     {
       title: "Best side hustles in 2026?",
       author: "MoneyMind",
       votes: 532,
-      comments: 201
+      comments: 201,
     },
-    {
-      title: "Would you use a censorship-free discussion app?",
-      author: "ThreadStarter",
-      votes: 821,
-      comments: 340
-    }
-  ];
+  ]);
+
+  const [newPost, setNewPost] = useState("");
+
+  const addPost = () => {
+    if (!newPost.trim()) return;
+
+    const post = {
+      title: newPost,
+      author: "Anonymous",
+      votes: 0,
+      comments: 0,
+    };
+
+    setPosts([post, ...posts]);
+    setNewPost("");
+  };
 
   return (
     <main
@@ -26,7 +40,7 @@ export default function Home() {
         background: "#0b0b0f",
         minHeight: "100vh",
         color: "white",
-        fontFamily: "Arial, sans-serif"
+        fontFamily: "Arial, sans-serif",
       }}
     >
       {/* NAVBAR */}
@@ -36,21 +50,19 @@ export default function Home() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px 40px",
-          borderBottom: "1px solid #222"
+          borderBottom: "1px solid #222",
+          position: "sticky",
+          top: 0,
+          background: "#0b0b0f",
+          zIndex: 100,
         }}
       >
-        <h1 style={{ color: "#ff7a18", margin: 0 }}>ThreadHub</h1>
+        <h1 style={{ color: "#ff7a18" }}>ThreadHub</h1>
 
         <div style={{ display: "flex", gap: "20px" }}>
-          <a href="#" style={navLink}>
-            Feed
-          </a>
-          <a href="#" style={navLink}>
-            Communities
-          </a>
-          <a href="#" style={navLink}>
-            Premium
-          </a>
+          <a href="#" style={navLink}>Feed</a>
+          <a href="#" style={navLink}>Communities</a>
+          <a href="#" style={navLink}>Premium</a>
         </div>
       </nav>
 
@@ -58,237 +70,136 @@ export default function Home() {
       <section
         style={{
           textAlign: "center",
-          padding: "100px 20px"
+          padding: "80px 20px",
         }}
       >
-        <h2
+        <h1
           style={{
             fontSize: "64px",
-            marginBottom: "20px"
+            maxWidth: "900px",
+            margin: "auto",
+            lineHeight: "1.1",
           }}
         >
           Real Communities.
           <br />
           Real Conversations.
-        </h2>
+        </h1>
 
         <p
           style={{
-            color: "#b3b3b3",
-            fontSize: "22px",
-            maxWidth: "800px",
-            margin: "0 auto"
+            color: "#aaa",
+            marginTop: "20px",
+            fontSize: "20px",
+            maxWidth: "700px",
+            marginInline: "auto",
           }}
         >
-          ThreadHub is a next-generation discussion platform built for open
-          conversations, communities, creators, trending topics, and authentic
-          interaction.
+          ThreadHub is a next generation discussion platform built for open
+          conversations, communities, trending topics, and authentic interaction.
         </p>
-
-        <div
-          style={{
-            marginTop: "40px",
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px"
-          }}
-        >
-          <button style={primaryButton}>Explore Threads</button>
-          <button style={secondaryButton}>Join Community</button>
-        </div>
       </section>
 
-      {/* FEATURES */}
+      {/* CREATE POST */}
       <section
         style={{
-          padding: "40px",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "25px"
-        }}
-      >
-        <FeatureCard
-          title="🔥 Trending Topics"
-          text="Discover viral conversations and breaking discussions."
-        />
-
-        <FeatureCard
-          title="💬 Open Communities"
-          text="Create communities around hobbies, business, memes, and more."
-        />
-
-        <FeatureCard
-          title="⬆️ Voting System"
-          text="Upvote great content and help quality discussions rise."
-        />
-
-        <FeatureCard
-          title="👑 Creator Friendly"
-          text="Built for creators, businesses, and online communities."
-        />
-      </section>
-
-      {/* LIVE POSTS */}
-      <section
-        style={{
-          padding: "60px 40px"
-        }}
-      >
-        <h2
-          style={{
-            marginBottom: "30px",
-            fontSize: "38px"
-          }}
-        >
-          Trending Discussions
-        </h2>
-
-        <div
-          style={{
-            display: "grid",
-            gap: "20px"
-          }}
-        >
-          {posts.map((post, index) => (
-            <div key={index} style={postCard}>
-              <small style={{ color: "#888" }}>
-                c/{post.author} • posted by {post.author}
-              </small>
-
-              <h3>{post.title}</h3>
-
-              <div
-                style={{
-                  display: "flex",
-                  gap: "20px",
-                  color: "#999"
-                }}
-              >
-                <span>⬆️ {post.votes}</span>
-                <span>💬 {post.comments}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* PREMIUM */}
-      <section
-        style={{
-          padding: "80px 40px",
-          textAlign: "center"
+          maxWidth: "800px",
+          margin: "auto",
+          padding: "20px",
         }}
       >
         <div
           style={{
             background: "#15151d",
+            padding: "25px",
+            borderRadius: "18px",
             border: "1px solid #2a2a35",
-            borderRadius: "20px",
-            padding: "60px",
-            maxWidth: "900px",
-            margin: "0 auto"
           }}
         >
-          <h2
-            style={{
-              fontSize: "42px",
-              marginBottom: "20px"
-            }}
-          >
-            ThreadHub Premium
-          </h2>
+          <h2>Create a Post</h2>
 
-          <p
+          <textarea
+            value={newPost}
+            onChange={(e) => setNewPost(e.target.value)}
+            placeholder="Start a discussion..."
             style={{
-              color: "#b3b3b3",
-              fontSize: "20px"
+              width: "100%",
+              height: "120px",
+              marginTop: "15px",
+              background: "#0f0f14",
+              color: "white",
+              border: "1px solid #333",
+              borderRadius: "12px",
+              padding: "15px",
+              fontSize: "16px",
+              resize: "none",
             }}
-          >
-            Unlock exclusive communities, creator tools, profile upgrades,
-            analytics, badges, and premium discussions.
-          </p>
+          />
 
           <button
+            onClick={addPost}
             style={{
-              ...primaryButton,
-              marginTop: "30px"
+              marginTop: "15px",
+              background: "#ff7a18",
+              border: "none",
+              padding: "14px 22px",
+              borderRadius: "12px",
+              color: "white",
+              fontWeight: "bold",
+              cursor: "pointer",
+              fontSize: "16px",
             }}
           >
-            Upgrade Now
+            Post Thread
           </button>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer
+      {/* POSTS */}
+      <section
         style={{
-          borderTop: "1px solid #222",
-          padding: "30px",
-          textAlign: "center",
-          color: "#777"
+          maxWidth: "800px",
+          margin: "40px auto",
+          padding: "20px",
+          display: "grid",
+          gap: "20px",
         }}
       >
-        © 2026 ThreadHub — Built for creators, communities, and free discussion.
-      </footer>
+        {posts.map((post, index) => (
+          <div key={index} style={postCard}>
+            <h2>{post.title}</h2>
+
+            <p style={{ color: "#888" }}>
+              Posted by @{post.author}
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                marginTop: "15px",
+                color: "#bbb",
+              }}
+            >
+              <span>⬆ {post.votes}</span>
+              <span>💬 {post.comments}</span>
+            </div>
+          </div>
+        ))}
+      </section>
     </main>
-  );
-}
-
-function FeatureCard({ title, text }) {
-  return (
-    <div
-      style={{
-        background: "#15151d",
-        border: "1px solid #2a2a35",
-        borderRadius: "16px",
-        padding: "30px"
-      }}
-    >
-      <h3>{title}</h3>
-
-      <p
-        style={{
-          color: "#b3b3b3",
-          lineHeight: "1.6"
-        }}
-      >
-        {text}
-      </p>
-    </div>
   );
 }
 
 const navLink = {
   color: "white",
   textDecoration: "none",
-  fontWeight: "bold"
-};
-
-const primaryButton = {
-  background: "#ff7a18",
-  border: "none",
-  padding: "16px 28px",
-  borderRadius: "12px",
-  color: "white",
-  fontSize: "16px",
-  cursor: "pointer",
-  fontWeight: "bold"
-};
-
-const secondaryButton = {
-  background: "transparent",
-  border: "1px solid #444",
-  padding: "16px 28px",
-  borderRadius: "12px",
-  color: "white",
-  fontSize: "16px",
-  cursor: "pointer",
-  fontWeight: "bold"
+  fontWeight: "bold",
 };
 
 const postCard = {
   background: "#15151d",
   border: "1px solid #2a2a35",
-  borderRadius: "16px",
-  padding: "25px"
+  borderRadius: "18px",
+  padding: "25px",
 };
