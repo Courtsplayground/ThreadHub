@@ -52,14 +52,22 @@ const [commentInputs, setCommentInputs] = useState({});
       votes: 0,
       comments: 0,
     };
-await supabase.from("posts").insert([
-  {
-    title: newPost,
-    author: "Anonymous",
-    votes: 0,
-    comments: 0,
-  },
-]);
+const { data, error } = await supabase
+  .from("posts")
+  .insert([
+    {
+      title: newPost,
+      author: "Anonymous",
+      votes: 0,
+      comments: 0,
+    },
+  ])
+  .select();
+
+if (error) {
+  alert(error.message);
+  return;
+}
     setPosts([post, ...posts]);
     setNewPost("");
   };
