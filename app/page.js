@@ -11,6 +11,20 @@ const supabase = createClient(
 
 
 export default function Home() {
+  useEffect(() => {
+  getPosts();
+}, []);
+
+const getPosts = async () => {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (data) {
+    setPosts(data);
+  }
+};
   const [posts, setPosts] = useState([
     {
       title: "What would make social media better?",
