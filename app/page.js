@@ -1,6 +1,14 @@
 "use client";
 
+
+import { createClient } from "@supabase/supabase-js";
 import { useState } from "react";
+
+const supabase = createClient(
+  "https://tynwacvfvdaobexsohvx.supabase.co",
+"sb_publishable_LP0K0Gh86XxRg0YuYLhBnQ_E0aF08IR"
+);
+
 
 export default function Home() {
   const [posts, setPosts] = useState([
