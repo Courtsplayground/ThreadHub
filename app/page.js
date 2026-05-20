@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const supabase = createClient(
   "https://tynwacvfvdaobexsohvx.supabase.co",
-"sb_publishable_LP0K0Gh86XxRg0YuYLhBnQ_E0aF08IR"
+  "sb_publishable_LP0K0Gh86XxRg0YuYLhBnQ_E0aFO8IR"
 );
 
 
