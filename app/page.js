@@ -19,7 +19,8 @@ export default function Home() {
   ]);
 
   const [newPost, setNewPost] = useState("");
-
+const [comments, setComments] = useState({});
+const [commentInputs, setCommentInputs] = useState({});
   const addPost = () => {
     if (!newPost.trim()) return;
 
@@ -196,8 +197,83 @@ export default function Home() {
 >
   ⬆ {post.votes}
 </button>
-              <span>💬 {post.comments}</span>
+              <span>
+  💬 {comments[index]?.length || post.comments}
+</span>
             </div>
+  <div
+  style={{
+    marginTop: "20px",
+  }}
+>
+  <input
+    type="text"
+    placeholder="Write a comment..."
+    value={commentInputs[index] || ""}
+    onChange={(e) =>
+      setCommentInputs({
+        ...commentInputs,
+        [index]: e.target.value,
+      })
+    }
+    style={{
+      width: "100%",
+      padding: "12px",
+      borderRadius: "10px",
+      border: "1px solid #333",
+      background: "#0f0f14",
+      color: "white",
+      marginBottom: "10px",
+    }}
+  />
+
+  <button
+    onClick={() => {
+      if (!commentInputs[index]) return;
+
+      const updatedComments = {
+        ...comments,
+        [index]: [
+          ...(comments[index] || []),
+          commentInputs[index],
+        ],
+      };
+
+      setComments(updatedComments);
+
+      setCommentInputs({
+        ...commentInputs,
+        [index]: "",
+      });
+    }}
+    style={{
+      background: "#ff7a18",
+      border: "none",
+      padding: "10px 16px",
+      borderRadius: "10px",
+      color: "white",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    Add Comment
+  </button>
+
+  {(comments[index] || []).map((comment, i) => (
+    <div
+      key={i}
+      style={{
+        marginTop: "12px",
+        padding: "12px",
+        background: "#101018",
+        borderRadius: "10px",
+        color: "#ddd",
+      }}
+    >
+      💬 {comment}
+    </div>
+  ))}
+</div>
           </div>
         ))}
       </section>
