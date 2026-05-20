@@ -180,7 +180,17 @@ export default function Home() {
                 color: "#bbb",
               }}
             >
-              <span>⬆ {post.votes}</span>
+             <button
+  style={{
+    background: "transparent",
+    border: "none",
+    color: "#bbb",
+    cursor: "pointer",
+    fontSize: "16px",
+  }}
+>
+  ⬆ {post.votes}
+</button>
               <span>💬 {post.comments}</span>
             </div>
           </div>
