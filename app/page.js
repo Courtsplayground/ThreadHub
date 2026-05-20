@@ -235,10 +235,15 @@ if (error) {
               }}
             >
 <button
-  onClick={() => {
+  onClick={async () => {
     const updatedPosts = [...posts];
-    updatedPosts[index].votes += 1;
-    setPosts(updatedPosts);
+  updatedPosts[index].votes += 1;
+
+setPosts([...updatedPosts]);
+await supabase
+  .from("posts")
+  .update({ votes: updatedPosts[index].votes })
+  .eq("id", updatedPosts[index].id);
   }}
   style={{
     background: "transparent",
