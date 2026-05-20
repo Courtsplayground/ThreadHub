@@ -180,7 +180,12 @@ export default function Home() {
                 color: "#bbb",
               }}
             >
-             <button
+<button
+  onClick={() => {
+    const updatedPosts = [...posts];
+    updatedPosts[index].votes += 1;
+    setPosts(updatedPosts);
+  }}
   style={{
     background: "transparent",
     border: "none",
