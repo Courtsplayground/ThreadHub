@@ -25,8 +25,10 @@ const getPosts = async () => {
     setPosts(data);
   }
 };
+ 
+
   const [posts, setPosts] = useState([
-    {
+  {
       title: "What would make social media better?",
       author: "OpenTalk",
       votes: 245,
@@ -39,7 +41,7 @@ const getPosts = async () => {
       comments: 201,
     },
   ]);
-
+const [username, setUsername] = useState("");
   const [newPost, setNewPost] = useState("");
 const [comments, setComments] = useState({});
 const [commentInputs, setCommentInputs] = useState({});
@@ -48,7 +50,7 @@ const [commentInputs, setCommentInputs] = useState({});
 
     const post = {
       title: newPost,
-      author: "Anonymous",
+    author: username || "Anonymous",
       votes: 0,
       comments: 0,
     };
@@ -57,7 +59,7 @@ const { data, error } = await supabase
   .insert([
     {
       title: newPost,
-      author: "Anonymous",
+      author: username || "Anonymous",
       votes: 0,
       comments: 0,
     },
@@ -155,10 +157,24 @@ if (error) {
           }}
         >
           <h2>Create a Post</h2>
-
+<input
+  value={username}
+  onChange={(e) => setUsername(e.target.value)}
+  placeholder="Choose a username..."
+  style={{
+    width: "100%",
+    padding: "12px",
+    borderRadius: "10px",
+    border: "1px solid #333",
+    background: "#0f0f14",
+    color: "white",
+    marginBottom: "12px",
+  }}
+/>
           <textarea
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
+
             placeholder="Start a discussion..."
             style={{
               width: "100%",
