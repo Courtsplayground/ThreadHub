@@ -29,7 +29,7 @@ export default function Home() {
   const [newPost, setNewPost] = useState("");
 const [comments, setComments] = useState({});
 const [commentInputs, setCommentInputs] = useState({});
-  const addPost = () => {
+  const addPost = async () => {
     if (!newPost.trim()) return;
 
     const post = {
@@ -38,7 +38,14 @@ const [commentInputs, setCommentInputs] = useState({});
       votes: 0,
       comments: 0,
     };
-
+await supabase.from("posts").insert([
+  {
+    title: newPost,
+    author: "Anonymous",
+    votes: 0,
+    comments: 0,
+  },
+]);
     setPosts([post, ...posts]);
     setNewPost("");
   };
