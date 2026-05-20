@@ -170,8 +170,7 @@ export default function Home() {
             <h2>{post.title}</h2>
 
             <div   style={{     display: "flex",     alignItems: "center",     gap: "10px",     marginTop: "15px",     color: "#888",   }} >   <div     style={{       width: "38px",       height: "38px",       borderRadius: "50%",       background: "#ff7a18",       display: "flex",       alignItems: "center",       justifyContent: "center",       fontWeight: "bold",       color: "white",     }}   >     {post.author.charAt(0)}   </div>    <div>     <div>@{post.author}</div>      <div       style={{         fontSize: "13px",         color: "#666",       }}     >       Posted just now     </div>   </div> </div>
-              Posted by @{post.author}
-            
+             
 
             <div
               style={{
