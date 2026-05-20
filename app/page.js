@@ -2,8 +2,21 @@
 
 
 import { createClient } from "@supabase/supabase-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+useEffect(() => {
+  getPosts();
+}, []);
 
+async function getPosts() {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (!error && data) {
+    setPosts(data);
+  }
+}
 const supabase = createClient(
   "https://tynwacvfvdaobexsohvx.supabase.co",
 "sb_publishable_LP0K0Gh86XxRg0YuYLhBnQ_E0aF08IR"
